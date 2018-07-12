@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -31,18 +32,35 @@ namespace Kata.Diamond
         {
             Assert.That(DiamondMaker.CreateFor("C")[0], Is.EqualTo(" A "));
         }
+
+        [Test]
+        public void DiamondOfC_SecondLayer_HasBWithSpaces()
+        {
+            Assert.That(DiamondMaker.CreateFor("C")[1], Is.EqualTo("B B"));
+        }
+
+        [Test]
+        public void DiamondOfC_ThirdLayer_HasCWithSpaces()
+        {
+            Assert.That(DiamondMaker.CreateFor("C")[2], Is.EqualTo("C  C"));
+        }
     }
 
     public class DiamondMaker
     {
         public static string[] CreateFor(string letter)
         {
+            var alphabet = new[] { "A", "B", "C"};
+            var letterIndex = Array.FindIndex(alphabet, l => l == letter);
             var diamondLayers = new List<string>();
 
             if (letter != "A")
             {
                 diamondLayers.Add(" A ");
-                diamondLayers.Add("B B");
+                for (int i = 1; i <= letterIndex; i++)
+                {
+                    diamondLayers.Add(alphabet[i] + new String(' ', i) + alphabet[i]);
+                }
                 diamondLayers.Add(" A ");
                 return diamondLayers.ToArray();
             }
