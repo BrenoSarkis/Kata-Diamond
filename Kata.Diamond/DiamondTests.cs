@@ -33,6 +33,13 @@ namespace Kata.Diamond
             var diamond = DiamondMaker.CreateFor("C");
             Assert.That(diamond[0], Is.EqualTo("  A  "));
         }
+
+        [Test]
+        public void DiamondOfB_SecondRowStartsAndEndsOnB()
+        {
+            var diamond = DiamondMaker.CreateFor("B");
+            Assert.That(diamond[1], Is.EqualTo("B B"));
+        }
     }
 
     public class DiamondMaker
@@ -43,6 +50,10 @@ namespace Kata.Diamond
             var alphabet = new[] { "A", "B", "C" };
             var letterIndex = Array.FindIndex(alphabet, l => l == letter);
             diamond.Add(new String(' ', letterIndex) + "A" + new String(' ', letterIndex));
+            if (letterIndex > 0)
+            {
+                diamond.Add(alphabet[letterIndex] + new String(' ', letterIndex) + alphabet[letterIndex]);
+            }
             return diamond.ToArray();
         }
     }
