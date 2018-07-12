@@ -20,15 +20,12 @@ namespace Kata.Diamond
         }
 
         [Test]
-        public void DiamondOfB_HasASpaceInBetween()
+        public void DiamondOfB()
         {
-            Assert.That(DiamondMaker.CreateFor("B")[1], Is.EqualTo("B B"));
-        }
-
-        [Test]
-        public void DiamondOfB_BeginsWithAWithSpaces()
-        {
-            Assert.That(DiamondMaker.CreateFor("B")[0], Is.EqualTo(" A "));
+            var diamond = DiamondMaker.CreateFor("B");
+            Assert.That(diamond[0], Is.EqualTo(" A "));
+            Assert.That(diamond[1], Is.EqualTo("B B"));
+            Assert.That(diamond[2], Is.EqualTo(" A "));
         }
     }
 
@@ -41,6 +38,7 @@ namespace Kata.Diamond
             {
                 diamond.Add(" A ");
                 diamond.Add("B B");
+                diamond.Add(" A ");
                 return diamond.ToArray();
             }
             return  new []{"A"} ;
