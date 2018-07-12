@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,15 +16,25 @@ namespace Kata.Diamond
         [Test]
         public void DiamondOfA_HasNoSpaces()
         {
-            Assert.That(DiamondMaker.CreateFor("A")[0], Is.EqualTo("A"));
+            Assert.That(DiamondMaker.CreateFor("A"), Is.EqualTo("A"));
+        }
+
+        [Test]
+        public void DiamondOfB_HasASpaceInBetween()
+        {
+            Assert.That(DiamondMaker.CreateFor("B"), Is.EqualTo("B B"));
         }
     }
 
     public class DiamondMaker
     {
-        public static string[] CreateFor(string letter)
+        public static string  CreateFor(string letter)
         {
-            return new []{ "A" };
+            if (letter == "B")
+            {
+                return "B B";
+            }
+            return  "A" ;
         }
     }
 }
