@@ -14,25 +14,34 @@ namespace Kata.Diamond
         [Test]
         public void DiamondOfA()
         {
-            Assert.That(DiamondMaker.CreateFor("A"), Is.EqualTo("A"));
+            Assert.That(DiamondMaker.CreateFor("A")[0], Is.EqualTo("A"));
         }
 
         [Test]
         public void DiamondOfB_SurroundsAWithEmptySpaces()
         {
-            Assert.That(DiamondMaker.CreateFor("B"), Is.EqualTo(" A "));
+            Assert.That(DiamondMaker.CreateFor("B")[0], Is.EqualTo(" A "));
+        }
+
+        [Test]
+        public void DiamondOfB_SecondLayer_CreatesBWithAnSpaceInBetween()
+        {
+            Assert.That(DiamondMaker.CreateFor("B")[1], Is.EqualTo("B B"));
         }
     }
 
     public class DiamondMaker
     {
-        public static string CreateFor(string letter)
+        public static string[] CreateFor(string letter)
         {
+            var diamondLayers = new List<string>();
             if (letter == "B")
             {
-                return " A ";
+                diamondLayers.Add(" A ");
+                diamondLayers.Add("B B");
+                return diamondLayers.ToArray();
             }
-            return "A";
+            return new []{ "A" };
         }
     }
 }
