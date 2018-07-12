@@ -34,6 +34,12 @@ namespace Kata.Diamond
         {
             Assert.That(DiamondMaker.CreateFor("C")[1], Is.EqualTo(" B B "));
         }
+
+        [Test]
+        public void DiamondOfC_ThirdLayer_HasNoOuterSpacing()
+        {
+            Assert.That(DiamondMaker.CreateFor("C")[2], Is.EqualTo("C   C"));
+        }
     }
 
     public class DiamondMaker
@@ -47,17 +53,20 @@ namespace Kata.Diamond
             if (letter != "A")
             {
                 diamond.Add(" A ");
-                if (letterIndex > 1)
+                for (int i = 1; i <= letterIndex; i++)
                 {
-                    diamond.Add(new String(' ', letterIndex - 1) + 
-                                alphabet[letterIndex - 1] + 
-                                new String(' ', letterIndex - 1) + 
-                                alphabet[letterIndex - 1] + 
-                                new String(' ', letterIndex - 1));
-                }
-                else
-                {
-                    diamond.Add("B B");
+                    if (i == letterIndex)
+                    {
+                        diamond.Add(alphabet[i] + new String(' ', i + 1) + alphabet[i]);
+                    }
+                    else
+                    {
+                        diamond.Add(new String(' ', letterIndex - 1) +
+                                    alphabet[letterIndex - 1] +
+                                    new String(' ', letterIndex - 1) +
+                                    alphabet[letterIndex - 1] +
+                                    new String(' ', letterIndex - 1));
+                    }
                 }
                 diamond.Add(" A ");
                 return diamond.ToArray();
