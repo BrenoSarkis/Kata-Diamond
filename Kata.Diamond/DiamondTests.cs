@@ -28,6 +28,12 @@ namespace Kata.Diamond
         {
             Assert.That(DiamondMaker.CreateFor("B")[1], Is.EqualTo("B B"));
         }
+
+        [Test]
+        public void DiamondOfB_ThirdLayer_CreatesASurroundedBySpaces()
+        {
+            Assert.That(DiamondMaker.CreateFor("B")[2], Is.EqualTo(" A "));
+        }
     }
 
     public class DiamondMaker
@@ -39,6 +45,7 @@ namespace Kata.Diamond
             {
                 diamondLayers.Add(" A ");
                 diamondLayers.Add("B B");
+                diamondLayers.Add(" A ");
                 return diamondLayers.ToArray();
             }
             return new []{ "A" };
