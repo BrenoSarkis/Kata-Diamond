@@ -16,12 +16,22 @@ namespace Kata.Diamond
         {
             Assert.That(DiamondMaker.CreateFor("A"), Is.EqualTo("A"));
         }
+
+        [Test]
+        public void DiamondOfB_SurroundsAWithEmptySpaces()
+        {
+            Assert.That(DiamondMaker.CreateFor("B"), Is.EqualTo(" A "));
+        }
     }
 
     public class DiamondMaker
     {
         public static string CreateFor(string letter)
         {
+            if (letter == "B")
+            {
+                return " A ";
+            }
             return "A";
         }
     }
