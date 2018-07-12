@@ -21,24 +21,17 @@ namespace Kata.Diamond
         }
 
         [Test]
-        public void DiamondOfB()
+        public void DiamondOfB_FirstRowHasSurroundingSpaces()
         {
             var diamond = DiamondMaker.CreateFor("B");
             Assert.That(diamond[0], Is.EqualTo(" A "));
-            Assert.That(diamond[1], Is.EqualTo("B B"));
-            Assert.That(diamond[2], Is.EqualTo(" A "));
         }
 
         [Test]
-        public void DiamondOfC_OnSecondLayer_HasBWithSpacing()
+        public void DiamondOfC_FirstRowHasTwoSurroundingSpaces()
         {
-            Assert.That(DiamondMaker.CreateFor("C")[1], Is.EqualTo(" B B "));
-        }
-
-        [Test]
-        public void DiamondOfC_ThirdLayer_HasNoOuterSpacing()
-        {
-            Assert.That(DiamondMaker.CreateFor("C")[2], Is.EqualTo("C   C"));
+            var diamond = DiamondMaker.CreateFor("C");
+            Assert.That(diamond[0], Is.EqualTo("  A  "));
         }
     }
 
@@ -46,32 +39,11 @@ namespace Kata.Diamond
     {
         public static string[] CreateFor(string letter)
         {
+            var diamond = new List<string>();
             var alphabet = new[] { "A", "B", "C" };
             var letterIndex = Array.FindIndex(alphabet, l => l == letter);
-            var diamond = new List<string>();
-
-            if (letter != "A")
-            {
-                diamond.Add(" A ");
-                for (int i = 1; i <= letterIndex; i++)
-                {
-                    if (i == letterIndex)
-                    {
-                        diamond.Add(alphabet[i] + new String(' ', i + 1) + alphabet[i]);
-                    }
-                    else
-                    {
-                        diamond.Add(new String(' ', letterIndex - 1) +
-                                    alphabet[letterIndex - 1] +
-                                    new String(' ', letterIndex - 1) +
-                                    alphabet[letterIndex - 1] +
-                                    new String(' ', letterIndex - 1));
-                    }
-                }
-                diamond.Add(" A ");
-                return diamond.ToArray();
-            }
-            return new[] { "A" };
+            diamond.Add(new String(' ', letterIndex) + "A" + new String(' ', letterIndex));
+            return diamond.ToArray();
         }
     }
 }
