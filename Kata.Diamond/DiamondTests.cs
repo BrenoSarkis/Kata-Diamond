@@ -13,36 +13,9 @@ namespace Kata.Diamond
     public class DiamondTests
     {
         [Test]
-        public void DiamondOfA()
+        public void DiamondOfA_HasNoSpaces()
         {
             Assert.That(DiamondMaker.CreateFor("A")[0], Is.EqualTo("A"));
-        }
-
-        [Test]
-        public void DiamondOfB()
-        {
-            var diamondOfB = DiamondMaker.CreateFor("B");
-            Assert.That(diamondOfB[0], Is.EqualTo(" A "));
-            Assert.That(diamondOfB[1], Is.EqualTo("B B"));
-            Assert.That(diamondOfB[2], Is.EqualTo(" A "));
-        }
-
-        [Test]
-        public void DiamondOfC_FirstLayer_StartsWithA()
-        {
-            Assert.That(DiamondMaker.CreateFor("C")[0], Is.EqualTo(" A "));
-        }
-
-        [Test]
-        public void DiamondOfC_SecondLayer_HasBWithSpaces()
-        {
-            Assert.That(DiamondMaker.CreateFor("C")[1], Is.EqualTo("B B"));
-        }
-
-        [Test]
-        public void DiamondOfC_ThirdLayer_HasCWithSpaces()
-        {
-            Assert.That(DiamondMaker.CreateFor("C")[2], Is.EqualTo("C  C"));
         }
     }
 
@@ -50,20 +23,6 @@ namespace Kata.Diamond
     {
         public static string[] CreateFor(string letter)
         {
-            var alphabet = new[] { "A", "B", "C"};
-            var letterIndex = Array.FindIndex(alphabet, l => l == letter);
-            var diamondLayers = new List<string>();
-
-            if (letter != "A")
-            {
-                diamondLayers.Add(" A ");
-                for (int i = 1; i <= letterIndex; i++)
-                {
-                    diamondLayers.Add(alphabet[i] + new String(' ', i) + alphabet[i]);
-                }
-                diamondLayers.Add(" A ");
-                return diamondLayers.ToArray();
-            }
             return new []{ "A" };
         }
     }
