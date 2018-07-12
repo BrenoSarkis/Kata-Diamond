@@ -18,21 +18,12 @@ namespace Kata.Diamond
         }
 
         [Test]
-        public void DiamondOfB_SurroundsAWithEmptySpaces()
+        public void DiamondOfB()
         {
-            Assert.That(DiamondMaker.CreateFor("B")[0], Is.EqualTo(" A "));
-        }
-
-        [Test]
-        public void DiamondOfB_SecondLayer_CreatesBWithAnSpaceInBetween()
-        {
-            Assert.That(DiamondMaker.CreateFor("B")[1], Is.EqualTo("B B"));
-        }
-
-        [Test]
-        public void DiamondOfB_ThirdLayer_CreatesASurroundedBySpaces()
-        {
-            Assert.That(DiamondMaker.CreateFor("B")[2], Is.EqualTo(" A "));
+            var diamondOfB = DiamondMaker.CreateFor("B");
+            Assert.That(diamondOfB[0], Is.EqualTo(" A "));
+            Assert.That(diamondOfB[1], Is.EqualTo("B B"));
+            Assert.That(diamondOfB[2], Is.EqualTo(" A "));
         }
     }
 
