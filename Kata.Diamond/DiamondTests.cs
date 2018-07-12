@@ -25,6 +25,12 @@ namespace Kata.Diamond
             Assert.That(diamondOfB[1], Is.EqualTo("B B"));
             Assert.That(diamondOfB[2], Is.EqualTo(" A "));
         }
+
+        [Test]
+        public void DiamondOfC_FirstLayer_StartsWithA()
+        {
+            Assert.That(DiamondMaker.CreateFor("C")[0], Is.EqualTo(" A "));
+        }
     }
 
     public class DiamondMaker
@@ -32,7 +38,8 @@ namespace Kata.Diamond
         public static string[] CreateFor(string letter)
         {
             var diamondLayers = new List<string>();
-            if (letter == "B")
+
+            if (letter != "A")
             {
                 diamondLayers.Add(" A ");
                 diamondLayers.Add("B B");
