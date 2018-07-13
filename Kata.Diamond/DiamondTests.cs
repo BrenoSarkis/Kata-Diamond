@@ -15,18 +15,39 @@ namespace Kata.Diamond
     public class DiamondTests
     {
         [Test]
-        public void OneRowDiamond_HasOnlyOneLetter()
+        public void SingleLetter_HasOnlyOneLetter()
         {
-            Assert.That(DiamondMaker.CreateFor("A"), Is.EqualTo("A"));
+            Assert.That(DiamondMaker.CreateFor("A")[0], Is.EqualTo("A"));
         }
 
+        [Test]
+        public void TwoLettersDiamond_FistRowHasOneSpace()
+        {
+            Assert.That(DiamondMaker.CreateFor("B")[0], Is.EqualTo(" A "));
+        }
+
+        [Test]
+        public void ThreeLettersDiamond_FistRowTwoOneSpace()
+        {
+            Assert.That(DiamondMaker.CreateFor("C")[0], Is.EqualTo("  A  "));
+        }
     }
 
     public class DiamondMaker
     {
-        public static string CreateFor(string letter)
+        public static string[] CreateFor(string letter)
         {
-            return "A";
+            var diamond = new List<string>();
+            var alphabet = new[] { "A", "B", "C" };
+
+            var letterIndex = Array.FindIndex(alphabet, l => l == letter);
+            diamond.Add(new String(' ', letterIndex) + "A" + new String(' ', letterIndex));
+
+            if (letterIndex > 0)
+            {
+                return diamond.ToArray();
+            }
+            return new[] {"A"};
         }
     }
 }
