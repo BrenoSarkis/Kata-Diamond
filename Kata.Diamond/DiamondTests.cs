@@ -35,6 +35,14 @@ namespace Kata.Diamond
             AssertDiamondRowAt(diamond, 0, "--A--");
         }
 
+        [Test]
+        public void DiamondOfC_SecondRowIsMadeFromLetterB()
+        {
+            var diamond = new Diamond("C").Generate();
+
+            AssertDiamondRowAt(diamond, 1, "-B-B-");
+        }
+
         private void AssertDiamondRowAt(string[,] diamond, int rowIndex, string expectedValue)
         {
             Assert.That(GetRow(diamond, rowIndex), Is.EqualTo(expectedValue));
@@ -68,18 +76,29 @@ namespace Kata.Diamond
 
         public string[,] Generate()
         {
+            int leftLetterPosition = centerOfTheDiamond;
+            int rightLetterPosition = centerOfTheDiamond;
+
             for (int i = 0; i <= letterIndex; i++)
             {
                 if (i == 0)
                 {
                     SetsLetterAtTheMiddle(i);
                     SetsLetterAtTheMiddle(size - 1);
+                    continue;
                 }
 
                 if (i == letterIndex)
                 {
                     SetTheMiddle(i);
+                    continue;
                 }
+
+                leftLetterPosition--;
+                rightLetterPosition++;
+
+                diamondStructure[i, leftLetterPosition] = alphabet[i];
+                diamondStructure[i, rightLetterPosition] = alphabet[i];
             }
 
             FillsBlanksWithDashes();
