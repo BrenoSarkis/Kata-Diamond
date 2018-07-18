@@ -28,27 +28,14 @@ namespace Kata.Diamond
         }
 
         [Test]
-        public void DiamondOfC_LetterAIsAtTheCenterWithSpacing()
+        public void DiamondOfC()
         {
             var diamond = new Diamond("C").Generate();
-
             AssertDiamondRowAt(diamond, 0, "--A--");
-        }
-
-        [Test]
-        public void DiamondOfC_SecondRowIsMadeFromLetterB()
-        {
-            var diamond = new Diamond("C").Generate();
-
             AssertDiamondRowAt(diamond, 1, "-B-B-");
-        }
-
-        [Test]
-        public void DiamondOfC_FourthRowIsMadeFromLetterB()
-        {
-            var diamond = new Diamond("C").Generate();
-
+            AssertDiamondRowAt(diamond, 2, "C---C");
             AssertDiamondRowAt(diamond, 3, "-B-B-");
+            AssertDiamondRowAt(diamond, 4, "--A--");
         }
 
         private void AssertDiamondRowAt(string[,] diamond, int rowIndex, string expectedValue)
