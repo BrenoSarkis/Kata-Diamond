@@ -51,42 +51,58 @@ namespace Kata.Diamond
         private readonly string[] alphabet = { "A", "B", "C" };
         private readonly int letterIndex = 0;
         private readonly int size = 0;
+        private readonly int centerOfTheDiamond;
+        private readonly string[,] diamondStructure;
 
         public Diamond(string letter)
         {
             this.letter = letter;
             letterIndex = Array.FindIndex(alphabet, x => x == letter);
             size = letterIndex * 2 + 1;
+            centerOfTheDiamond = size / 2;
+            diamondStructure = new string[size,size];
         }
 
         public string[,] Generate()
         {
-            var diamond = new string[size, size];
-
-            var centerOfTheDiamond = size / 2;
-
             for (int i = 0; i <= letterIndex; i++)
             {
                 if (i == 0)
                 {
-                    diamond[i, centerOfTheDiamond] = "A";
+                    SetTheUpperTip(i);
                 }
 
                 if (i == letterIndex)
                 {
-                    diamond[i, 0] = letter;
-                    diamond[i, size - 1] = letter;
+                    SetTheMiddle(i);
                 }
 
-                for (int j = 0; j < size; j++)
+                FillsBlanksWithDashes(i);
+            }
+
+            return diamondStructure;
+        }
+
+        private void FillsBlanksWithDashes(int i)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                if (diamondStructure[i, j] == null)
                 {
-                    if (diamond[i, j] == null)
-                    {
-                        diamond[i, j] = "-";
-                    }
+                    diamondStructure[i, j] = "-";
                 }
             }
-            return diamond;
+        }
+
+        private void SetTheMiddle(int i)
+        {
+            diamondStructure[i, 0] = letter;
+            diamondStructure[i, size - 1] = letter;
+        }
+
+        private void SetTheUpperTip(int i)
+        {
+            diamondStructure[i, centerOfTheDiamond] = "A";
         }
     }
 }
