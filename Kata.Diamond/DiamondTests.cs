@@ -30,6 +30,14 @@ namespace Kata.Diamond
             Assert.That(GetRow(diamond.Generate(), 1), Is.EqualTo("B-B"));
         }
 
+
+        [Test]
+        public void DiamondOfB_LetterAIsAtTheEndWithSpacing()
+        {
+            var diamond = new Diamond("B");
+            Assert.That(GetRow(diamond.Generate(), 2), Is.EqualTo("-A-"));
+        }
+
         [Test]
         public void DiamondOfC_LetterAIsAtTheCenterWithSpacing()
         {
@@ -69,27 +77,32 @@ namespace Kata.Diamond
             {
                 if (i == 0)
                 {
-                    SetTheUpperTip(i);
+                    SetsLetterAtTheMiddle(i);
+                    SetsLetterAtTheMiddle(size-1);
                 }
 
                 if (i == letterIndex)
                 {
                     SetTheMiddle(i);
                 }
-
-                FillsBlanksWithDashes(i);
             }
+
+            FillsBlanksWithDashes();
+
 
             return diamondStructure;
         }
 
-        private void FillsBlanksWithDashes(int i)
+        private void FillsBlanksWithDashes()
         {
-            for (int j = 0; j < size; j++)
+            for (int i = 0; i < size; i++)
             {
-                if (diamondStructure[i, j] == null)
+                for (int j = 0; j < size; j++)
                 {
-                    diamondStructure[i, j] = "-";
+                    if (diamondStructure[i, j] == null)
+                    {
+                        diamondStructure[i, j] = "-";
+                    }
                 }
             }
         }
@@ -100,7 +113,7 @@ namespace Kata.Diamond
             diamondStructure[i, size - 1] = letter;
         }
 
-        private void SetTheUpperTip(int i)
+        private void SetsLetterAtTheMiddle(int i)
         {
             diamondStructure[i, centerOfTheDiamond] = "A";
         }
