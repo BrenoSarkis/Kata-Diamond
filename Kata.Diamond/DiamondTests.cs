@@ -43,6 +43,14 @@ namespace Kata.Diamond
             AssertDiamondRowAt(diamond, 1, "-B-B-");
         }
 
+        [Test]
+        public void DiamondOfC_FourthRowIsMadeFromLetterB()
+        {
+            var diamond = new Diamond("C").Generate();
+
+            AssertDiamondRowAt(diamond, 3, "-B-B-");
+        }
+
         private void AssertDiamondRowAt(string[,] diamond, int rowIndex, string expectedValue)
         {
             Assert.That(GetRow(diamond, rowIndex), Is.EqualTo(expectedValue));
@@ -78,33 +86,44 @@ namespace Kata.Diamond
         {
             int leftLetterPosition = centerOfTheDiamond;
             int rightLetterPosition = centerOfTheDiamond;
+            var diamondWidth = size - 1;
 
-            for (int i = 0; i <= letterIndex; i++)
+            for (int row = 0; row <= letterIndex; row++)
             {
-                if (i == 0)
+                if (row == 0)
                 {
-                    SetsLetterAtTheMiddle(i);
-                    SetsLetterAtTheMiddle(size - 1);
+                    SetsLetterAtTheMiddle(row);
+                    SetsLetterAtTheMiddle(diamondWidth);
                     continue;
                 }
 
-                if (i == letterIndex)
+                if (row == letterIndex)
                 {
-                    SetTheMiddle(i);
+                    SetTheMiddle(row);
                     continue;
                 }
 
                 leftLetterPosition--;
                 rightLetterPosition++;
 
-                diamondStructure[i, leftLetterPosition] = alphabet[i];
-                diamondStructure[i, rightLetterPosition] = alphabet[i];
+                var rowAtBottomHalf = diamondWidth - row;
+                var currentLetter = alphabet[row];
+
+                SetLetterAt(currentLetter, row, leftLetterPosition, rightLetterPosition);
+                SetLetterAt(currentLetter, rowAtBottomHalf, leftLetterPosition, rightLetterPosition);
             }
 
             FillsBlanksWithDashes();
 
-
             return diamondStructure;
+        }
+
+
+
+        private void SetLetterAt(string letter, int row, int leftLetterPosition, int rightLetterPosition)
+        {
+            diamondStructure[row, leftLetterPosition] = letter;
+            diamondStructure[row, rightLetterPosition] = letter;
         }
 
         private void FillsBlanksWithDashes()
