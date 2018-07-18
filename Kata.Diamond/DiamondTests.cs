@@ -12,37 +12,32 @@ namespace Kata.Diamond
         [Test]
         public void DiamondOfA()
         {
-            var diamond = new Diamond("A");
-            Assert.That(GetRow(diamond.Generate(), 0), Is.EqualTo("A"));
+            var diamond = new Diamond("A").Generate();
+
+            AssertDiamondRowAt(diamond, 0, "A");
         }
 
         [Test]
-        public void DiamondOfB_LetterAIsAtTheCenterWithSpacing()
+        public void DiamondOfB()
         {
-            var diamond = new Diamond("B");
-            Assert.That(GetRow(diamond.Generate(), 0), Is.EqualTo("-A-"));
-        }
+            var diamond = new Diamond("B").Generate();
 
-        [Test]
-        public void DiamondOfB_LetterBIsAtBothTipsOfTheDiamond()
-        {
-            var diamond = new Diamond("B");
-            Assert.That(GetRow(diamond.Generate(), 1), Is.EqualTo("B-B"));
-        }
-
-
-        [Test]
-        public void DiamondOfB_LetterAIsAtTheEndWithSpacing()
-        {
-            var diamond = new Diamond("B");
-            Assert.That(GetRow(diamond.Generate(), 2), Is.EqualTo("-A-"));
+            AssertDiamondRowAt(diamond, 0, "-A-");
+            AssertDiamondRowAt(diamond, 1, "B-B");
+            AssertDiamondRowAt(diamond, 2, "-A-");
         }
 
         [Test]
         public void DiamondOfC_LetterAIsAtTheCenterWithSpacing()
         {
-            var diamond = new Diamond("C");
-            Assert.That(GetRow(diamond.Generate(), 0), Is.EqualTo("--A--"));
+            var diamond = new Diamond("C").Generate();
+
+            AssertDiamondRowAt(diamond, 0, "--A--");
+        }
+
+        private void AssertDiamondRowAt(string[,] diamond, int rowIndex, string expectedValue)
+        {
+            Assert.That(GetRow(diamond, rowIndex), Is.EqualTo(expectedValue));
         }
 
         private string GetRow(string[,] diamond, int row)
@@ -68,7 +63,7 @@ namespace Kata.Diamond
             letterIndex = Array.FindIndex(alphabet, x => x == letter);
             size = letterIndex * 2 + 1;
             centerOfTheDiamond = size / 2;
-            diamondStructure = new string[size,size];
+            diamondStructure = new string[size, size];
         }
 
         public string[,] Generate()
@@ -78,7 +73,7 @@ namespace Kata.Diamond
                 if (i == 0)
                 {
                     SetsLetterAtTheMiddle(i);
-                    SetsLetterAtTheMiddle(size-1);
+                    SetsLetterAtTheMiddle(size - 1);
                 }
 
                 if (i == letterIndex)
