@@ -38,6 +38,19 @@ namespace Kata.Diamond
             AssertDiamondRowAt(diamond, 4, "--A--");
         }
 
+        [Test]
+        public void DiamondOfD()
+        {
+            var diamond = new Diamond("D").Generate();
+            AssertDiamondRowAt(diamond, 0, "---A---");
+            AssertDiamondRowAt(diamond, 1, "--B-B--");
+            AssertDiamondRowAt(diamond, 2, "-C---C-");
+            AssertDiamondRowAt(diamond, 3, "D-----D");
+            AssertDiamondRowAt(diamond, 4, "-C---C-");
+            AssertDiamondRowAt(diamond, 5, "--B-B--");
+            AssertDiamondRowAt(diamond, 6, "---A---");
+        }
+
         private void AssertDiamondRowAt(string[,] diamond, int rowIndex, string expectedValue)
         {
             Assert.That(GetRow(diamond, rowIndex), Is.EqualTo(expectedValue));
@@ -54,7 +67,7 @@ namespace Kata.Diamond
     public class Diamond
     {
         private readonly string letter;
-        private readonly string[] alphabet = { "A", "B", "C" };
+        private readonly string[] alphabet = { "A", "B", "C", "D" };
         private readonly int letterIndex = 0;
         private readonly int size = 0;
         private readonly int centerOfTheDiamond;
