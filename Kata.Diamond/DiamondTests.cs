@@ -31,6 +31,7 @@ namespace Kata.Diamond
         public void DiamondOfC()
         {
             var diamond = new Diamond("C").Generate();
+            
             AssertDiamondRowAt(diamond, 0, "--A--");
             AssertDiamondRowAt(diamond, 1, "-B-B-");
             AssertDiamondRowAt(diamond, 2, "C---C");
@@ -42,6 +43,7 @@ namespace Kata.Diamond
         public void DiamondOfD()
         {
             var diamond = new Diamond("D").Generate();
+            
             AssertDiamondRowAt(diamond, 0, "---A---");
             AssertDiamondRowAt(diamond, 1, "--B-B--");
             AssertDiamondRowAt(diamond, 2, "-C---C-");
